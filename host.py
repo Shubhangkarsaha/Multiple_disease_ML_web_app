@@ -1,15 +1,16 @@
 import numpy as np
 import pickle
 import streamlit as st
-from sklearn.preprocessing import StandardScaler
+#from sklearn.preprocessing import StandardScaler
 
 # loading the saved model
-loaded_model = pickle.load(open('C:/Users/shubh/machine_learning_project/Multiple_disease_prediction/Multiple_disease_prediction/svm_diabetes_model.sav', 'rb'))
+loaded_model = pickle.load(open('svm_diabetes_model.sav', 'rb'))
+#scaler = StandardScaler()
 
 
 # creating a function for prediction
 
-def diabetes_prediction(input_data, scaler=None):
+def diabetes_prediction(input_data):
     # changing the input data to numpy array
     input_data_as_numpy_array = np.asarray(input_data)
 
@@ -17,10 +18,9 @@ def diabetes_prediction(input_data, scaler=None):
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
     # standardized the input data
-    std_data = scaler.transform(input_data_reshaped)
-    print(std_data)
+    #std_data = scaler.transform(input_data_reshaped)
 
-    prediction = loaded_model.predict(std_data)
+    prediction = loaded_model.predict(input_data_reshaped)
     print(prediction)
 
     if prediction[0] == 1:
